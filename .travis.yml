@@ -1,0 +1,14 @@
+# Use container-based infrastructure
+sudo: false
+
+language: scala
+
+scala:
+  - 2.10.4
+  - 2.11.5
+jdk:
+  - openjdk7
+  - oraclejdk8
+
+script:
+   - sbt ++$TRAVIS_SCALA_VERSION -Dfile.encoding=UTF8 -J-XX:ReservedCodeCacheSize=256M test
