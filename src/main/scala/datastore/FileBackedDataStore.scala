@@ -67,9 +67,14 @@ class FileBackedDataStore extends DataStore {
   def put(key: String, value: String): Boolean = {
     if(!locationInfo.contains(key)) {
       underlyingFile.seek(underlyingFile.length())
+
       underlyingFile.writeUTF(key)
+      underlyingFile.writeUTF("\n")
+
       locationInfo.put(key, underlyingFile.getFilePointer)
+
       underlyingFile.writeUTF(value)
+      underlyingFile.writeUTF("\n")
       true
     } else {
       false
