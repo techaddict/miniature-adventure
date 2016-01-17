@@ -46,7 +46,7 @@ class FileBackedDataStoreSpec extends FunSuite with BeforeAndAfterEach {
     dataStore.put("k1", "v1")
 
     assert(dataStore.get("k1").isDefined)
-    assert(dataStore.get("k1") == Some("v1"))
+    assert(dataStore.get("k1").contains("v1"))
 
     assert(dataStore.get("k2").isEmpty)
   }
