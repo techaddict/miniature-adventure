@@ -8,8 +8,9 @@ class FileBackedDataStoreSpec extends FunSuite with BeforeAndAfterEach {
   var dataStore: FileBackedDataStore = _
 
   override def beforeEach() = {
-    dataStore = new FileBackedDataStore
+    dataStore = new FileBackedDataStore(Config())
   }
+
   override def afterEach() = {
     dataStore.close()
     dataStore.clean()
@@ -56,5 +57,21 @@ class FileBackedDataStoreSpec extends FunSuite with BeforeAndAfterEach {
 
     assert(dataStore.put("k1", "v1"))
     assert(!dataStore.put("k1", "v2"))
+  }
+
+  test("test recover") {
+    dataStore.init()
+    val filename = dataStore.underlyingFileName
+
+    dataStore.put("k1", "v1")
+    dataStore.put("k2", "v2")
+    dataStore.put("k3", "v3")
+    dataStore.close()
+
+    dataStore.recover(filename)
+    assert(dataStore.get("k1").contains("v1"))
+    assert(dataStore.get("k2").contains("v2"))
+    assert(dataStore.get("k3").contains("v3"))
+    assert(dataStore.iterator().toSet == Iterator(("k1", "v1"), ("k2", "v2"), ("k3", "v3")).toSet)
   }
 }

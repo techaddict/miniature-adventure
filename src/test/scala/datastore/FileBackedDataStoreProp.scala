@@ -5,7 +5,7 @@ import org.scalacheck.{Gen, Properties}
 
 object FileBackedDataStoreProp extends Properties("String") {
 
-  val dataStore: FileBackedDataStore = new FileBackedDataStore
+  val dataStore: FileBackedDataStore = new FileBackedDataStore(Config())
   dataStore.init()
 
   property("put and then get") = forAll { (k: String, v: String) =>
