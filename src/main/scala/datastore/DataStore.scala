@@ -1,3 +1,5 @@
+package datastore
+
 trait DataStore {
   def init(): Boolean
   def close(): Boolean

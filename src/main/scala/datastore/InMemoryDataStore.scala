@@ -1,7 +1,9 @@
+package datastore
+
 import scala.collection.mutable
 
 class InMemoryDataStore extends DataStore {
-  private var underlying: mutable.Map[String, String] = _
+  private[datastore] var underlying: mutable.Map[String, String] = _
 
   def init(): Boolean = {
     if(underlying == null) {
@@ -42,5 +44,5 @@ class InMemoryDataStore extends DataStore {
     }
   }
 
-  def assertOpen(): Unit = assert(underlying != null, "Initialize DataStore before Accessing Data")
+  def assertOpen(): Unit = assert(underlying != null, "Initialize datastore.DataStore before Accessing Data")
 }

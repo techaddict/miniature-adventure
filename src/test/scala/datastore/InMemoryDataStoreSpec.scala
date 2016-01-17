@@ -1,3 +1,5 @@
+package datastore
+
 import org.scalatest.FunSuite
 
 import scala.collection.mutable
@@ -6,7 +8,7 @@ class InMemoryDataStoreSpec extends FunSuite {
   test("test init()") {
     val dataStore = new InMemoryDataStore
     dataStore.init()
-    assert(dataStore == mutable.Map[String, String]())
+    assert(dataStore.underlying == mutable.Map[String, String]())
   }
 
   test("test close() if initialized") {
@@ -50,6 +52,6 @@ class InMemoryDataStoreSpec extends FunSuite {
     dataStore.init()
 
     assert(dataStore.put("k1", "v1"))
-    assert(dataStore.put("k1", "v2"))
+    assert(!dataStore.put("k1", "v2"))
   }
 }
